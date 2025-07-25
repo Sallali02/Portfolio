@@ -77,4 +77,31 @@ document.addEventListener('DOMContentLoaded', () => {
       behavior: "smooth"
     });
   });
+
+// ✅ Contact Form Submission + Thank You Message
+const contactForm = document.getElementById("contactForm");
+const thankYouMessage = document.getElementById("thankYouMessage");
+
+if (contactForm) {
+  contactForm.addEventListener("submit", async function (e) {
+    e.preventDefault(); // Prevent normal page reload
+
+    const formData = new FormData(contactForm);
+
+    const response = await fetch(contactForm.action, {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" }
+    });
+
+    if (response.ok) {
+      thankYouMessage.style.display = "block"; // Show success message
+      contactForm.reset(); // Clear form fields
+    } else {
+      alert("Oops! Something went wrong. Please try again.");
+    }
+  });
+}
+
+
 });
